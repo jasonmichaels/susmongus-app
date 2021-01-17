@@ -21,4 +21,5 @@ NOTE: the executable can be found in `release/SusmongusApp Setup {app_version}.e
 
 ## TODOs
 
-For now, app icons in development default to the Electron app icon. However, they're correct after the app has been packaged.
+- Calling `clear-sus` from `main.dev.ts` doesn't seem to work at the moment.
+- For now, app icons in development default to the Electron app icon. However, they're correct after the app has been packaged.

@@ -1,0 +1,54 @@
+.inputContainer {
+  margin-bottom: 24px;
+}
+
+.inputContainer > input {
+  display: table-cell;
+  font-family: inherit;
+  margin: 6px;
+  width: 30px;
+  height: 42px;
+  border-radius: 3px;
+  font-size: 24px;
+  background-color: #fff;
+  color: #01012b;
+  border: 1px solid transparent;
+  text-align: center;
+  padding-top: 12px;
+  caret-color: transparent;
+}
+
+.instructions {
+  font-size: 24px;
+  margin-bottom: 24px;
+}
+
+.paragraph {
+  font-size: 16px;
+  margin: 0;
+  margin-bottom: 24px;
+}
+
+.button {
+  background-color: #fff;
+  color: #ff2a6d;
+  padding: 10px 48px;
+  outline: none;
+  border: none;
+  font-size: 18px;
+  border-radius: 16px;
+}
+
+.button:disabled {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.button:hover:enabled {
+  cursor: pointer;
+  transform: scale(1.025);
+}
+
+.button:active:enabled {
+  transform: scale(0.975);
+}

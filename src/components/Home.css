@@ -1,0 +1,11 @@
+.container a {
+  font-size: 1.4rem;
+}
+
+.video {
+  width: auto;
+  height: auto;
+  position: fixed;
+  top: -10000px;
+  left: -10000px;
+}

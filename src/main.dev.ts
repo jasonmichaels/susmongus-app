@@ -14,7 +14,11 @@ import path from 'path';
 import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import Store from 'electron-store';
+import axios from 'axios';
 import MenuBuilder from './menu';
+
+const store = new Store();
 
 export default class AppUpdater {
   constructor() {
@@ -94,7 +98,17 @@ const createWindow = async () => {
     }
   });
 
-  mainWindow.on('closed', () => {
+  mainWindow.on('closed', async () => {
+    const pin = store.get('pin');
+
+    if (pin) {
+      await axios.post(
+        'https://n6a9k209p4.execute-api.us-east-2.amazonaws.com/clear-sus',
+        {
+          id: pin,
+        }
+      );
+    }
     mainWindow = null;
   });
 

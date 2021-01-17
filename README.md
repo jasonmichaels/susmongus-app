@@ -18,3 +18,7 @@ To package the app for release, enter the following in your terminal:
 yarn package
 ```
 NOTE: the executable can be found in `release/SusmongusApp Setup {app_version}.exe`
+
+## TODOs
+
+For now, app icons in development default to the Electron app icon. However, they're correct after the app has been packaged.

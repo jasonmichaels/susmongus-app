@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-
+// eslint-disable-next-line
 import Container from '../containers/Container';
+// eslint-disable-next-line
 import { AppContext } from '../containers/App';
 
 function Login() {

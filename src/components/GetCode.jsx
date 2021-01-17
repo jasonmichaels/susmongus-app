@@ -10,6 +10,7 @@ import ReactCodeInput from 'react-code-input';
 import axios from 'axios';
 import Store from 'electron-store';
 
+// eslint-disable-next-line
 import Container from '../containers/Container';
 // eslint-disable-next-line
 import { AppContext } from '../containers/App';

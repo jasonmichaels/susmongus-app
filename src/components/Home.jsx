@@ -18,7 +18,7 @@ import captureMedia from '../helpers/captureMedia';
 import clearSus from '../helpers/clearSus';
 // eslint-disable-next-line
 import { AppContext } from '../containers/App';
-import styles from './Home.css';
+import styles from './Home.module.css';
 
 const { desktopCapturer } = require('electron');
 

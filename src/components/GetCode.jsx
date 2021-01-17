@@ -14,7 +14,7 @@ import Store from 'electron-store';
 import Container from '../containers/Container';
 // eslint-disable-next-line
 import { AppContext } from '../containers/App';
-import styles from './GetCode.css';
+import styles from './GetCode.module.css';
 
 const store = new Store();
 

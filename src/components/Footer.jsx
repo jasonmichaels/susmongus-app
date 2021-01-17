@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import styles from './Footer.css';
+import styles from './Footer.module.css';
 // eslint-disable-next-line
 import { AppContext } from '../containers/App';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Header.css';
+import styles from './Header.module.css';
 
 const Header = () => <h1 className={styles.header}>susmongus</h1>;
 

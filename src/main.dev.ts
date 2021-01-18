@@ -16,10 +16,8 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import Store from 'electron-store';
 import axios from 'axios';
-import MenuBuilder from './menu';
 
 const store = new Store();
-
 export default class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';

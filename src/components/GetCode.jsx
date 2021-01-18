@@ -32,7 +32,10 @@ function GetCode() {
     }
   }, [storedCode, history]);
 
-  const handleSetCode = useCallback((codeText) => setCodeText(codeText), []);
+  const handleSetCode = useCallback((codeText) => {
+    setCodeText(codeText);
+    setNeedsCode(false);
+  }, []);
 
   const handleSubmit = useCallback(
     async (e) => {
@@ -62,14 +65,15 @@ function GetCode() {
   return (
     <Container>
       <h2 className={styles.instructions}>Instructions</h2>
-      {!storedCode && !needsCode && (
-        <p className={styles.paragraph}>
-          Enter your Alexa-provided six-digit code to start tracking sus.
-        </p>
-      )}
-      {needsCode && (
-        <p className={styles.paragraph}>Account not found. Ask Alexa!</p>
-      )}
+      <p className={styles.paragraph}>
+        Make sure you&apos;re running the Alexa&trade;&nbsp;<em>Susmongus</em>
+        &nbsp; skill, then ask,&nbsp;
+        <em>Alexa, what&apos;s my code?</em>&nbsp;and enter the six-digit code
+        below to login and start tracking sus.
+      </p>
+      {needsCode && code.length === 6 ? (
+        <p className={styles.paragraph}>Code not found!</p>
+      ) : null}
       <ReactCodeInput
         type="text"
         fields={6}

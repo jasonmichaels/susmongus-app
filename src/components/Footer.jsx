@@ -17,7 +17,9 @@ const Footer = () => {
 
   return (
     <footer className={styles.footer}>
-      <h3 className={styles.date}>Copyright {new Date().getFullYear()}</h3>
+      <h3 className={styles.date}>
+        Jogo&nbsp;&copy;&nbsp;{new Date().getFullYear()}
+      </h3>
       {code && (
         // eslint-disable-next-line
         <div role="button" className={styles.logout} onClick={handleLogout}>

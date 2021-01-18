@@ -6,6 +6,7 @@
   margin-bottom: 48px;
   display: flex;
   justify-content: space-between;
+  padding-left: 40px;
 }
 
 .bannerFinger {
@@ -15,6 +16,7 @@
   animation-duration: 2.5s;
   animation-iteration-count: infinite;
   transform-origin: 70% 70%;
+  opacity: 0.75;
 }
 
 @keyframes move-finger {

@@ -1,9 +1,12 @@
 import React, { useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import Store from 'electron-store';
 
 import styles from './Footer.module.css';
 // eslint-disable-next-line
 import { AppContext } from '../containers/App';
+
+const store = new Store();
 
 const Footer = () => {
   const history = useHistory();
@@ -12,6 +15,7 @@ const Footer = () => {
 
   const handleLogout = useCallback(() => {
     setCode('');
+    store.set('pin', '');
     history.push('/login');
   }, [history, setCode]);
 

@@ -112,7 +112,9 @@ const createWindow = async () => {
     mainWindow = null;
   });
 
-  mainWindow.removeMenu();
+  if (process.env.NODE_ENV === 'production') {
+    mainWindow.removeMenu();
+  }
 
   // Open urls in the user's browser
   mainWindow.webContents.on('new-window', (event, url) => {

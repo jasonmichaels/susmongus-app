@@ -60,6 +60,7 @@ function GetCode() {
     [code, setCode, history]
   );
 
+  const hasLetters = /[a-f]/i.test(code);
   const enableSubmit = useMemo(() => code?.length === 6, [code]);
 
   return (
@@ -74,6 +75,9 @@ function GetCode() {
       {needsCode && code.length === 6 ? (
         <p className={styles.paragraph}>Code not found!</p>
       ) : null}
+      {hasLetters ? (
+        <p className={styles.paragraph}>Code cannot contain letters!</p>
+      ) : null}
       <ReactCodeInput
         type="text"
         fields={6}
@@ -86,7 +90,7 @@ function GetCode() {
       <button
         type="submit"
         onClick={handleSubmit}
-        disabled={!enableSubmit}
+        disabled={!enableSubmit || hasLetters}
         className={styles.button}
       >
         Submit

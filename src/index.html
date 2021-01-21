@@ -12,6 +12,16 @@
         document.getElementsByTagName('head')[0].appendChild(link);
       })();
     </script>
+    <script>
+      let openSans= new FontFace('Noir', 'url(./fonts/Noir_regular.woff)');
+      openSans.load().then(function(loaded_face) {
+        document.fonts.add(loaded_face);
+        document.body.style.fontFamily = '"Noir", Helvetica';
+      }).catch(function(error) {
+          // error occurred
+        console.error(error);
+      });
+    </script>
   </head>
   <body>
     <div id="root"></div>

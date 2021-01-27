@@ -54,15 +54,9 @@ const Home = () => {
 
           const buffer = Buffer.from(strippedData, 'base64');
 
-          fs.writeFileSync(
-            path.join(__dirname, '..', 'test-images', 'original.png'),
-            buffer,
-            'base64'
-          );
+          const text = await extractTextFromImage(buffer);
 
-          const text = await extractTextFromImage();
-
-          if (text?.toUpperCase()?.indexOf('PING:') > -1) {
+          if (text && text?.toUpperCase()?.indexOf('PING:') > -1) {
             const newTime = new Date().getTime();
             if (newTime - susCleared > 60 * 1000) {
               clearSus(code);

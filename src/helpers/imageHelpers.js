@@ -4,6 +4,9 @@ import path from 'path';
 import fs from 'fs';
 
 const extractTextFromImage = async (imageBuffer) => {
+  const id = Date.now();
+  const filename = `modified-${id}.png`;
+
   const worker = createWorker({
     cachePath: path.join(__dirname, '..', 'lang-data'),
   });
@@ -23,8 +26,7 @@ const extractTextFromImage = async (imageBuffer) => {
       image
         .greyscale() // set greyscale
         .invert() // invert colors
-        .contrast(1) // boost contrast
-        .write(path.join(__dirname, '..', 'test-images', 'modified.png')); // save
+        .write(path.join(__dirname, '..', 'test-images', filename)); // save
       return true;
     })
     .catch(() => {
@@ -38,23 +40,14 @@ const extractTextFromImage = async (imageBuffer) => {
     const {
       data: { text },
     } = await worker.recognize(
-      path.join(__dirname, '..', 'test-images', 'modified.png'),
+      path.join(__dirname, '..', 'test-images', filename),
       { rectangle }
     );
 
     await worker.terminate();
 
-    const files = fs.readdirSync(path.join(__dirname, '..', 'test-images'));
+    fs.unlinkSync(path.join(__dirname, '..', 'test-images', filename));
 
-    if (Array.isArray(files)) {
-      try {
-        files.forEach((file) =>
-          fs.unlinkSync(path.join(__dirname, '..', 'test-images', file))
-        );
-      } catch {
-        return false;
-      }
-    }
     return text;
   }
   return false;

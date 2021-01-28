@@ -7,9 +7,8 @@ import React, {
   useRef,
   useContext,
 } from 'react';
-import fs from 'fs';
-import path from 'path';
 import ReactLoading from 'react-loading';
+import axios from 'axios';
 
 // eslint-disable-next-line
 import Container from '../containers/Container';
@@ -93,8 +92,17 @@ const Home = () => {
         clearInterval(checkInterval);
         setAmongUsFound(null);
       }
+
+      if (code) {
+        axios.post(
+          'https://n6a9k209p4.execute-api.us-east-2.amazonaws.com/clear-sus',
+          {
+            id: code,
+          }
+        );
+      }
     };
-  }, [checkInterval]);
+  }, [checkInterval, code]);
 
   useEffect(() => {
     startCheck();

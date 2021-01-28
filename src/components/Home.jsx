@@ -25,7 +25,6 @@ const Home = () => {
   const [amongUsFound, setAmongUsFound] = useState(null);
   // eslint-disable-next-line
   const [checkInterval, setCheckInterval] = useState(null);
-  const [susCleared, setSusCleared] = useState(new Date().getTime());
 
   const videoRef = useRef(null);
 
@@ -55,18 +54,14 @@ const Home = () => {
 
           const text = await extractTextFromImage(buffer);
 
-          if (text && text?.toUpperCase()?.indexOf('PING:') > -1) {
-            const newTime = new Date().getTime();
-            if (newTime - susCleared > 60 * 1000) {
-              clearSus(code);
-              setSusCleared(newTime);
-            }
+          if (text && text?.toUpperCase()?.indexOf('SETTINGS') > -1) {
+            clearSus(code);
           }
         }
         setAmongUsFound(null);
       }
     }
-  }, [videoRef, code, susCleared]);
+  }, [videoRef, code]);
 
   const startCheck = useCallback(() => {
     const interval = window.setInterval(async () => {
@@ -82,7 +77,7 @@ const Home = () => {
       if (videoRef.current) {
         createCanvas();
       }
-    }, 5000);
+    }, 10000);
     setCheckInterval(interval);
   }, [createCanvas, videoRef]);
 

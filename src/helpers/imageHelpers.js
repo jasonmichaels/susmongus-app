@@ -14,7 +14,7 @@ const extractTextFromImage = async (imageBuffer) => {
   let rectangle;
 
   const success = Jimp.read(imageBuffer)
-    .then((image) => {
+    .then(async (image) => {
       const { height, width } = image.bitmap;
       rectangle = {
         left: 0,
@@ -23,10 +23,10 @@ const extractTextFromImage = async (imageBuffer) => {
         height: height / 2,
       };
 
-      image
+      await image
         .greyscale() // set greyscale
         .invert() // invert colors
-        .write(path.join(__dirname, '..', 'test-images', filename)); // save
+        .writeAsync(path.join(__dirname, '..', 'test-images', filename)); // save
       return true;
     })
     .catch(() => {

@@ -13,8 +13,8 @@
       })();
     </script>
     <script>
-      let openSans= new FontFace('Noir', 'url(./fonts/Noir_regular.woff)');
-      openSans.load().then(function(loaded_face) {
+      let noir= new FontFace('Noir', 'url(./fonts/Noir_regular.woff)');
+      noir.load().then(function(loaded_face) {
         document.fonts.add(loaded_face);
         document.body.style.fontFamily = '"Noir", Helvetica';
       }).catch(function(error) {

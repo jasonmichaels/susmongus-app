@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import Store from 'electron-store';
 import { Switch, Route, useHistory } from 'react-router-dom';
-
+/* eslint-disable */
 import Home from '../components/Home';
 import Login from '../components/Login';
 import Faq from '../components/Faq';

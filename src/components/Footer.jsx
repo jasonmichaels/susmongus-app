@@ -17,12 +17,15 @@ const Footer = () => {
   const { code, setCode } = useContext(AppContext);
 
   const middleButton = useMemo(() => {
-    const isHome = location.pathname === '/home';
+    const { pathname } = location;
+    const showHome = pathname === '/faq';
+    const showGetCode = !code && pathname !== '/getCode';
+
     return {
-      route: isHome ? '/faq' : '/home',
-      text: isHome ? 'FAQ' : 'Home'
+      route: showGetCode ? '/getCode' : showHome ? '/home' : '/faq',
+      text: showGetCode ? 'Get Code' : showHome ? 'Home' : 'FAQ'
     };
-}, [location.pathname]);
+}, [location.pathname, code]);
 
   const handleLogout = useCallback(() => {
     setCode('');

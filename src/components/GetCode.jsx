@@ -67,10 +67,10 @@ function GetCode() {
     <Container>
       <h2 className={styles.instructions}>Instructions</h2>
       <p className={styles.paragraph}>
-        Make sure you&apos;re running the Alexa&trade;&nbsp;<em>Susmongus</em>
+        Make sure you&apos;re running the Alexa&trade;&nbsp;<em>Sus Tracker</em>
         &nbsp; skill, then ask,&nbsp;
-        <em>Alexa, what&apos;s my code?</em>&nbsp;and enter the six-digit code
-        below to login and start tracking sus.
+        <em>Alexa, get my code using Sus Tracker,</em>&nbsp;and enter the
+        six-digit code below to login and start tracking sus.
       </p>
       {needsCode && code.length === 6 ? (
         <p className={styles.paragraph}>Code not found!</p>

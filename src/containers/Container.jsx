@@ -6,9 +6,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import containerStyle from './containerStyle';
 
-const Container = ({ children }) => (
+const Container = ({ children, showHeader }) => (
   <div style={containerStyle} id="outer-container">
-    <Header />
+    {!showHeader ? null : <Header />}
     {children}
     <Footer />
   </div>
@@ -16,6 +16,11 @@ const Container = ({ children }) => (
 
 Container.propTypes = {
   children: PropTypes.node.isRequired,
+  showHeader: PropTypes.bool,
+};
+
+Container.defaultProps = {
+  showHeader: true,
 };
 
 export default Container;

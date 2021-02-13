@@ -4,6 +4,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 
 import Home from '../components/Home';
 import Login from '../components/Login';
+import Faq from '../components/Faq';
 // eslint-disable-next-line
 import GetCode from '../components/GetCode';
 
@@ -46,6 +47,7 @@ const App = () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/getCode" component={GetCode} />
         <Route exact path="/home" component={Home} />
+        <Route exact path="/faq" component={Faq} />
       </Switch>
     </AppContext.Provider>
   );

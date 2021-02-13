@@ -18,12 +18,12 @@
   margin-left: 18px;
 }
 
-.logout {
+.button {
   margin: 0;
   margin-right: 18px;
   font-size: 12px;
 }
 
-.logout:hover {
+.button:hover {
   cursor: pointer;
 }

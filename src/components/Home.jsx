@@ -31,6 +31,16 @@ const Home = () => {
 
   const { code } = useContext(AppContext);
 
+  const checkText = useCallback(
+    async (text) => {
+      if (text && text?.toUpperCase()?.indexOf('SETTINGS') > -1) {
+        await clearSus(code);
+      }
+      return true;
+    },
+    [code]
+  );
+
   const createCanvas = useCallback(async () => {
     const videoDetails = videoRef.current.getBoundingClientRect();
 
@@ -50,14 +60,10 @@ const Home = () => {
 
     const buffer = Buffer.from(strippedData, 'base64');
 
-    const text = await extractTextFromImage(buffer);
+    await extractTextFromImage(buffer, checkText);
 
-    if (text && text?.toUpperCase()?.indexOf('SETTINGS') > -1) {
-      await clearSus(code);
-    }
-    setAmongUsFound(null);
-    return true;
-  }, [code]);
+    return setAmongUsFound(null);
+  }, [checkText]);
 
   const startCheck = useCallback(async () => {
     const sources = await desktopCapturer.getSources({
@@ -76,7 +82,7 @@ const Home = () => {
   }, [createCanvas]);
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => setShouldCheck(true), 10000);
+    intervalRef.current = setInterval(() => setShouldCheck(true), 5000);
 
     return () => {
       clearInterval(intervalRef.current);

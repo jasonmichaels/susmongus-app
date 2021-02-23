@@ -1,19 +1,16 @@
 import { createWorker } from 'tesseract.js';
 import Jimp from 'jimp';
 import path from 'path';
-import fs from 'fs';
 
-const extractTextFromImage = async (imageBuffer) => {
-  const id = Date.now();
-  const filename = `modified-${id}.png`;
-
+const extractTextFromImage = async (imageBuffer, callback) => {
   const worker = createWorker({
     cachePath: path.join(__dirname, '..', 'lang-data'),
   });
 
   let rectangle;
-
-  const success = Jimp.read(imageBuffer)
+  // eslint-disable-next-line
+  await Jimp.read(imageBuffer)
+    // eslint-disable-next-line
     .then(async (image) => {
       const { height, width } = image.bitmap;
       rectangle = {
@@ -26,31 +23,20 @@ const extractTextFromImage = async (imageBuffer) => {
       await image
         .greyscale() // set greyscale
         .invert() // invert colors
-        .writeAsync(path.join(__dirname, '..', 'test-images', filename)); // save
-      return true;
+        .getBuffer(Jimp.MIME_JPEG, async (_, buffer) => {
+          await worker.load();
+          await worker.loadLanguage('eng');
+          await worker.initialize('eng');
+          const {
+            data: { text },
+          } = await worker.recognize(buffer, { rectangle });
+          await worker.terminate();
+          // eslint-disable-next-line promise/no-callback-in-promise
+          await callback(text);
+        });
     })
-    .catch(() => {
-      return false;
-    });
-
-  if (success) {
-    await worker.load();
-    await worker.loadLanguage('eng');
-    await worker.initialize('eng');
-    const {
-      data: { text },
-    } = await worker.recognize(
-      path.join(__dirname, '..', 'test-images', filename),
-      { rectangle }
-    );
-
-    await worker.terminate();
-
-    fs.unlinkSync(path.join(__dirname, '..', 'test-images', filename));
-
-    return text;
-  }
-  return false;
+    // eslint-disable-next-line promise/no-callback-in-promise
+    .catch(() => callback(false));
 };
 
 export default extractTextFromImage;

@@ -23,10 +23,11 @@ const { desktopCapturer } = require('electron');
 
 const Home = () => {
   const [amongUsFound, setAmongUsFound] = useState(null);
-  // eslint-disable-next-line
-  const [checkInterval, setCheckInterval] = useState(null);
+  const [shouldCheck, setShouldCheck] = useState(false);
+  const [isChecking, setIsChecking] = useState(false);
 
   const videoRef = useRef(null);
+  const intervalRef = useRef(null);
 
   const { code } = useContext(AppContext);
 
@@ -55,47 +56,40 @@ const Home = () => {
       await clearSus(code);
     }
     setAmongUsFound(null);
+    return true;
   }, [code]);
 
-  const startCheck = useCallback(() => {
-    const interval = window.setInterval(async () => {
-      const sources = await desktopCapturer.getSources({
-        types: ['window', 'screen'],
-      });
-      const amongUs = sources?.find((s) => s.name === 'Among Us') ?? null;
-      if (amongUs) {
-        captureMedia(amongUs.id);
-      }
-      setAmongUsFound(amongUs);
+  const startCheck = useCallback(async () => {
+    const sources = await desktopCapturer.getSources({
+      types: ['window', 'screen'],
+    });
+    const amongUs = sources?.find((s) => s.name === 'Among Us') ?? null;
+    if (amongUs) {
+      captureMedia(amongUs.id);
+    }
+    setAmongUsFound(amongUs);
 
-      if (videoRef.current) {
-        createCanvas();
-      }
-    }, 10000);
-    setCheckInterval(interval);
+    if (videoRef.current) {
+      await createCanvas();
+    }
+    setIsChecking(false);
   }, [createCanvas]);
 
   useEffect(() => {
-    return () => {
-      if (checkInterval) {
-        clearInterval(checkInterval);
-        setAmongUsFound(null);
-      }
+    intervalRef.current = setInterval(() => setShouldCheck(true), 10000);
 
-      if (code) {
-        axios.post(
-          'https://n6a9k209p4.execute-api.us-east-2.amazonaws.com/clear-sus',
-          {
-            id: code,
-          }
-        );
-      }
+    return () => {
+      clearInterval(intervalRef.current);
     };
-  }, [checkInterval, code]);
+  }, []);
 
   useEffect(() => {
-    startCheck();
-  }, [startCheck]);
+    if (shouldCheck && !isChecking) {
+      setShouldCheck(false);
+      setIsChecking(true);
+      startCheck();
+    }
+  }, [shouldCheck, isChecking, startCheck]);
 
   return (
     <Container>

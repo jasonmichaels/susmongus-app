@@ -31,37 +31,31 @@ const Home = () => {
   const { code } = useContext(AppContext);
 
   const createCanvas = useCallback(async () => {
-    if (videoRef.current) {
-      const videoDetails = videoRef.current.getBoundingClientRect();
+    const videoDetails = videoRef.current.getBoundingClientRect();
 
-      if (videoDetails) {
-        const { width, height } = videoDetails;
-        const canvas = document.createElement('canvas');
+    const { width, height } = videoDetails;
+    const canvas = document.createElement('canvas');
 
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
 
-        if (ctx) {
-          // Draw video on canvas
-          ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    // Draw video on canvas
+    ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
 
-          const data = canvas.toDataURL('image/png');
+    const data = canvas.toDataURL('image/png');
 
-          const strippedData = data.replace(/^data:image\/png;base64,/, '');
+    const strippedData = data.replace(/^data:image\/png;base64,/, '');
 
-          const buffer = Buffer.from(strippedData, 'base64');
+    const buffer = Buffer.from(strippedData, 'base64');
 
-          const text = await extractTextFromImage(buffer);
+    const text = await extractTextFromImage(buffer);
 
-          if (text && text?.toUpperCase()?.indexOf('SETTINGS') > -1) {
-            clearSus(code);
-          }
-        }
-        setAmongUsFound(null);
-      }
+    if (text && text?.toUpperCase()?.indexOf('SETTINGS') > -1) {
+      await clearSus(code);
     }
-  }, [videoRef, code]);
+    setAmongUsFound(null);
+  }, [code]);
 
   const startCheck = useCallback(() => {
     const interval = window.setInterval(async () => {
@@ -79,7 +73,7 @@ const Home = () => {
       }
     }, 10000);
     setCheckInterval(interval);
-  }, [createCanvas, videoRef]);
+  }, [createCanvas]);
 
   useEffect(() => {
     return () => {
@@ -108,9 +102,11 @@ const Home = () => {
       <ReactLoading type={amongUsFound ? 'cylon' : 'spokes'} color="#fff" />
       <div style={{ marginTop: '24px' }}>
         {amongUsFound ? (
-          <span>Performing analysis...</span>
+          <span>Checking if round has ended&nbsp;.&nbsp;.&nbsp;.</span>
         ) : (
-          <span>Waiting for Among Us...</span>
+          <span>
+            Detecting <em>Among Us&trade;</em>
+          </span>
         )}
       </div>
       <video ref={videoRef} className={styles.video} />

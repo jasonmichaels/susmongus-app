@@ -7,6 +7,7 @@ import styles from './Faq.module.css';
 const Faq = () => {
   const handleLink = useCallback((e) => {
     e.preventDefault();
+    // eslint-disable-next-line global-require
     require('electron').shell.openExternal(e.target.href);
   }, []);
 

@@ -86,8 +86,8 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "electron-react-boilerplate",
-      "repo": "electron-react-boilerplate"
+      "owner": "jasonmichaels",
+      "repo": "susmongus-app"
     }
   },
   "repository": {
@@ -99,15 +99,12 @@
     "url": "https://github.com/jasonmichaels/susmongus-app/issues"
   },
   "keywords": [
+    "among us",
+    "susmongus",
     "electron",
-    "boilerplate",
-    "react",
-    "typescript",
-    "ts",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
+    "gaming",
+    "alexa",
+    "voice assistant"
   ],
   "jest": {
     "testURL": "http://localhost/",
@@ -253,10 +250,6 @@
     "npm": ">=6.x",
     "yarn": ">=1.21.3"
   },
-  "collective": {
-    "url": "https://opencollective.com/electron-react-boilerplate-594"
-  },
-  "browserslist": [],
   "prettier": {
     "overrides": [
       {
